@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "login.login"|trans }}{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 
@@ -16,15 +16,15 @@
 
                 </div>
                 <h1 class="mtext-111 cl2 p-b-16">
-                    {{ "login.login"|trans }}
+                    Connexion
                 </h1>
                 <div class="col-sm-12 p-b-8">
-                    <label class="stext-102 cl3" for="inputEmail">{{ "login.email"|trans }}</label>
+                    <label class="stext-102 cl3" for="inputEmail">Email</label>
                     <input class="size-111 bor8 stext-102 cl2 p-lr-20" value="{{ last_username }}" id="inputEmail" type="email" name="email" required autofocus>
                     <br>
                 </div>
                 <div class="col-sm-12 p-b-8">
-                    <label class="stext-102 cl3" for="inputPassword">{{ "login.password"|trans }}</label>
+                    <label class="stext-102 cl3" for="inputPassword">Mot de passe</label>
                     <input class="size-111 bor8 stext-102 cl2 p-lr-20" type="password" name="password" id="inputPassword" required>
                     <br>
                 </div>
@@ -42,9 +42,9 @@
                 </div>
                 #}
                 <div class="col-sm-12 p-b-8">
-                    <a href="#" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"> {{ 'forget_password.password'|trans }}</a>
+                    <a href="#" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">Mot de passe oublier</a>
                     <br>
-                    <a href="#" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"> {{ 'login.register'|trans }}</a>
+                    <a href="#" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">Inscription</a>
                     <br>
                 </div>
                 <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
