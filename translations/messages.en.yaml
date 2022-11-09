@@ -1,0 +1,58 @@
+login:
+  login: Login
+  email: Email
+  password: Password
+  register: New client ?
+register:
+  show_password: Show password
+  title: Register*
+  email: Email*
+  password: Password*
+  address: Address*
+  city: City*
+  phone: Number phone*
+  firstName: First Name*
+  lastName: Last Name*
+  success: Success register ! a confirmation email will be sent to you
+  errors:
+    email:
+      taken: There is already an account with this email
+      success: Email valid
+      error: Email not valid
+    password:
+      success: Password good
+      error: Invalid password (minimum 8 characters, one uppercase, one minisucle, one digit and one special character are required)
+
+confirm_email:
+  subject: Confirm your account
+  content: CLick here to confirm your account !
+  success: Your account has been activated you can now login in and complete your order
+  error: No account has been found or it has already been activated at before
+  activate: Your account has not been activated
+
+forget_password:
+  subject: Reset your password
+  title: To renew your password please enter your email address
+  password: Password forget
+  error: Your account does not exist
+  success: An email containing a link to renew your password has been sent
+  confirm_password: To retrieve your password please click here
+  reset:
+    title: Please enter your new password!
+    password: Recover your password
+    button: Send
+    success: Password change
+
+header:
+  account: My account
+  register: Registration
+  home: Home
+  shop: Shop
+  promo: Promotion
+  categories: Categories
+  about: About
+  contact: Contact
+  language: Language
+  order: Track Order
+  wishlist: My Wishlist
+  other: Other
