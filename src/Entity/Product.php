@@ -58,12 +58,16 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: PromotionalCode::class)]
+    private Collection $promotionalCode;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->typeProduct = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->promotionalCode = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -302,6 +306,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($comment->getProduct() === $this) {
                 $comment->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PromotionalCode>
+     */
+    public function getPromotionalCode(): Collection
+    {
+        return $this->promotionalCode;
+    }
+
+    public function addPromotionalCode(PromotionalCode $promotionalCode): self
+    {
+        if (!$this->promotionalCode->contains($promotionalCode)) {
+            $this->promotionalCode->add($promotionalCode);
+            $promotionalCode->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotionalCode(PromotionalCode $promotionalCode): self
+    {
+        if ($this->promotionalCode->removeElement($promotionalCode)) {
+            // set the owning side to null (unless already changed)
+            if ($promotionalCode->getProduct() === $this) {
+                $promotionalCode->setProduct(null);
             }
         }
 
