@@ -7,12 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     {% block stylesheets %}
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('adminAssets/images/favicon.png') }}">
+        <!-- Custom Stylesheet -->
+        <link href="{{ asset('adminAssets/css/style.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
+<!--*******************
+    Preloader start
+********************-->
+<div id="preloader">
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+        </svg>
+    </div>
+</div>
+<!--*******************
+    Preloader end
+********************-->
+<div id="main-wrapper">
+{{ include('admin/partial/header.html.twig') }}
 {% block body %}{% endblock %}
-
+{{ include('admin/partial/footer.html.twig') }}
+</div>
 {% block javascripts %}
+    <script src="{{ asset('adminAssets/plugins/common/common.min.js') }}"></script>
+    <script src="{{ asset('adminAssets/js/custom.min.js') }}"></script>
+    <script src="{{ asset('adminAssets/js/settings.js') }}"></script>
+    <script src="{{ asset('adminAssets/js/gleek.js') }}"></script>
+    <script src="{{ asset('adminAssets/js/styleSwitcher.js') }}"></script>
 {% endblock %}
 </body>
 </html>
