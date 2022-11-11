@@ -19,6 +19,9 @@ class ContentType
     #[ORM\ManyToOne(inversedBy: 'contentType')]
     private ?TypeProduct $typeProduct = null;
 
+    #[ORM\Column]
+    private ?int $stock = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class ContentType
     public function setTypeProduct(?TypeProduct $typeProduct): self
     {
         $this->typeProduct = $typeProduct;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }
