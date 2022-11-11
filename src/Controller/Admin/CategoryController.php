@@ -15,4 +15,10 @@ class CategoryController extends AbstractController
     {
         return $this->render('admin/category/home.html.twig');
     }
+
+    #[Route('/add', name: 'add')]
+    public function add(): Response
+    {
+        return $this->render('admin/category/add.html.twig');
+    }
 }
