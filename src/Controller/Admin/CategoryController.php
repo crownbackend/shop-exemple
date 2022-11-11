@@ -52,15 +52,40 @@ class CategoryController extends AbstractController
             if($imageFile) {
                 $imageFileName = $this->fileUploader->upload($imageFile, $this->getParameter('category_directory'));
                 $category->setImage($imageFileName);
-                $category->setSlug($this->slugger->slug($category->getName()));
-                $this->entityManager->persist($category);
-                $this->entityManager->flush();
-                $this->addFlash('success', 'Catégorie ajouter avec succès');
-                return $this->redirectToRoute('admin_category_category');
             }
+            $category->setSlug($this->slugger->slug($category->getName()));
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Catégorie ajouter avec succès');
+            return $this->redirectToRoute('admin_category_category');
         }
 
         return $this->render('admin/category/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Category $category, Request $request): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+            if($imageFile) {
+                $imageFileName = $this->fileUploader->upload($imageFile, $this->getParameter('category_directory'));
+                $category->setImage($imageFileName);
+            }
+            $category->setSlug($this->slugger->slug($category->getName()));
+            $this->entityManager->persist($category);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Catégorie modifier avec succès');
+            return $this->redirectToRoute('admin_category_category');
+        }
+
+        return $this->render('admin/category/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
