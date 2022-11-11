@@ -39,6 +39,7 @@ class Category
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 
@@ -71,12 +72,12 @@ class Category
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
 
