@@ -13,6 +13,7 @@
     <div class="content-body">
 
         <div class="container-fluid">
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -23,14 +24,24 @@
                                     <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Action</th>
+                                        <th>Stock sous produit</th>
+                                        <th>Produit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for type in typeProducts %}
                                         <tr>
                                             <td>{{ type.name }}</td>
-                                            <td>edit</td>
+                                            <td>
+                                                {% for contentType in type.contentType %}
+                                                    <span class="label label-primary">{{ contentType.stock }} {{ contentType.name }}</span>
+                                                {% endfor %}
+                                            </td>
+                                            {% if type.product %}
+                                                <td>{{ type.product.name }}</td>
+                                            {% else %}
+                                                <td>Aucun produit rattacher</td>
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tfoot>

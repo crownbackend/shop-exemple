@@ -2,7 +2,9 @@
 
 namespace App\Form\Admin;
 
+use App\Entity\Product;
 use App\Entity\TypeProduct;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,6 +21,15 @@ class TypeProductType extends AbstractType
                     'class' => 'form-control input-default'
                 ],
                 'label' => 'Nom'
+            ])
+            ->add('product', EntityType::class, [
+                'class' => Product::class,
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Catégories',
+                'required' => false
             ])
             ->add('contentType', CollectionType::class, [
                 'entry_type' => ContentTypeType::class,
