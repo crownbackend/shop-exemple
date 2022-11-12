@@ -21,7 +21,7 @@ class TypeProduct
     #[ORM\ManyToOne(inversedBy: 'typeProduct')]
     private ?Product $product = null;
 
-    #[ORM\OneToMany(mappedBy: 'typeProduct', targetEntity: ContentType::class)]
+    #[ORM\OneToMany(mappedBy: 'typeProduct', targetEntity: ContentType::class, cascade: ['persist', 'remove'])]
     private Collection $contentType;
 
     public function __construct()
