@@ -10,6 +10,7 @@ use App\Service\Slugger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,7 +87,18 @@ class CategoryController extends AbstractController
         }
 
         return $this->render('admin/category/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'category' => $category
         ]);
+    }
+
+    #[Route('/{id}/delete', name: 'delete')]
+    public function delete(Category $category): RedirectResponse
+    {
+        $this->fileUploader->delete($category->getImage(), 'category_directory');
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('admin_category_category');
     }
 }

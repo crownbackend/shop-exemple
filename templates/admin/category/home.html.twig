@@ -50,7 +50,7 @@
                                             <a href="{{ path('admin_category_edit', {'id': category.id}) }}">
                                                 <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                                             </a>
-                                            <a href="">
+                                            <a href="{{ path('admin_category_delete', {'id': category.id}) }}" onclick="return confirm('Are you sure?')">
                                                 <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                             </a>
 
@@ -83,6 +83,8 @@
             {% for message in app.flashes('success') %}
             swal("Catégorie", "{{ message }}", "success");
             {% endfor %}
+
+            $('')
         });
     </script>
 {% endblock %}
