@@ -2,8 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Product;
+use App\Form\Admin\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,6 +25,20 @@ class ProductController extends AbstractController
     {
         return $this->render('admin/product/index.html.twig', [
             'products' => $this->productRepository->findAll()
+        ]);
+    }
+
+    #[Route('/add', name: 'add')]
+    public function add(Request $request): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            dd($form->getData());
+        }
+        return $this->render('admin/product/add.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
