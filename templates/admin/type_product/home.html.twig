@@ -26,6 +26,7 @@
                                         <th>Nom</th>
                                         <th>Stock sous produit</th>
                                         <th>Produit</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -42,6 +43,9 @@
                                             {% else %}
                                                 <td>Aucun produit rattacher</td>
                                             {% endif %}
+                                            <td>
+                                                <a href="{{ path('admin_type_product_edit', {'id': type.id}) }}">editer</a>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tfoot>

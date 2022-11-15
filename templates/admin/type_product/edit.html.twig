@@ -14,7 +14,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Ajouter un type de produit</h4>
+                            <h4 class="card-title">Editer un type de produit</h4>
                             <p class="text-muted m-b-15 f-s-12">Un type de produit peut être une couleur, une taille, une pointure</p>
                             <div class="basic-form">
                                 {{ form_start(form) }}
@@ -61,11 +61,6 @@
             .forEach(btn => {
                 btn.addEventListener("click", addFormToCollection)
             });
-        document
-            .querySelectorAll('ul.tags li')
-            .forEach((tag) => {
-                addTagFormDeleteLink(tag)
-            })
         function addFormToCollection(e) {
             var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
@@ -82,22 +77,6 @@
             collectionHolder.appendChild(item);
 
             collectionHolder.dataset.index++;
-
-            addTagFormDeleteLink(item);
-        }
-
-        function addTagFormDeleteLink (item) {
-            const removeFormButton = document.createElement('button');
-            removeFormButton.innerText = 'Supprimer';
-            removeFormButton.className = 'btn btn-danger'
-
-            item.append(removeFormButton);
-
-            removeFormButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                // remove the li for the tag form
-                item.remove();
-            });
         }
     </script>
 {% endblock %}
