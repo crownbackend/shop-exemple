@@ -55,7 +55,7 @@ class TypeProductController extends AbstractController
     {
         $originalContentTypes = new ArrayCollection();
         foreach ($typeProduct->getContentType() as $contentType) {
-            $contentType->getName($contentType);
+            $originalContentTypes->add($contentType);
         }
         $form = $this->createForm(TypeProductType::class, $typeProduct);
         $form->handleRequest($request);
