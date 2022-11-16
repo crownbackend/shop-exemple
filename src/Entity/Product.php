@@ -43,7 +43,7 @@ class Product
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'products')]
     private Collection $categories;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
 
     #[ORM\Column(nullable: true)]
@@ -63,6 +63,7 @@ class Product
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->typeProduct = new ArrayCollection();

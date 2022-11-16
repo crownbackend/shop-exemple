@@ -56,4 +56,13 @@
     <script src="{{ asset('adminAssets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('adminAssets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminAssets/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            {% for message in app.flashes('success') %}
+            swal("Produits", "{{ message }}", "success");
+            {% endfor %}
+
+            $('')
+        });
+    </script>
 {% endblock %}

@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 
 class ProductType extends AbstractType
@@ -51,13 +52,15 @@ class ProductType extends AbstractType
                     'is' => 'drop-files'
                 ],
                 'constraints' => [
-                    new File([
-                        'maxSize' => '2M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Image en png jpeg autorisé seulement !',
+                    new All([
+                        new File([
+                            'maxSize' => '2048k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png'
+                            ],
+                            'mimeTypesMessage' => 'Image en png jpeg autorisé seulement !'
+                        ])
                     ])
                 ],
             ])
@@ -72,12 +75,14 @@ class ProductType extends AbstractType
             ])
             ->add('isSpecialOffer', CheckboxType::class,[
                 'label' => 'Offre spécial',
+                "required" => false
             ])
             ->add('percentOffer', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control input-default'
                 ],
-                'label' => 'Pourcentage de l\'offre'
+                'label' => 'Pourcentage de l\'offre',
+                "required" => false
             ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
