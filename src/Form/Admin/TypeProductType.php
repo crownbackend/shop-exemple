@@ -28,7 +28,7 @@ class TypeProductType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Catégories',
+                'label' => 'Produit',
                 'required' => false
             ])
             ->add('contentType', CollectionType::class, [
