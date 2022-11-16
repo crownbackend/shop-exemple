@@ -73,4 +73,16 @@ class ProductController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Product $product, Request $request)
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        return $this->render('admin/product/edit.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product
+        ]);
+    }
 }

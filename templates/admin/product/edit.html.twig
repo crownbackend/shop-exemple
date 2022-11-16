@@ -1,0 +1,81 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% block body %}
+
+    <!--**********************************
+         Content body start
+     ***********************************-->
+    <div class="content-body">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Editer les informations</h4>
+                            <p class="text-muted m-b-15 f-s-12">Ajouter tous vos produits et configurer les.</p>
+                            <div class="basic-form">
+                                {{ form_start(form) }}
+                                <div class="form-group">
+                                    {{ form_row(form.categories) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.name) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.description) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.metaDescription) }}
+                                </div>
+                                <div class="input-group">
+                                    {{ form_label(form.price) }}
+                                    <div class="input-group">
+                                        {{ form_widget(form.price) }}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="validationTooltipUsernamePrepend">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    {{ form_row(form.quantity) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(form.isPublished) }}
+                                    {{ form_widget(form.isPublished) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.images) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(form.isSpecialOffer) }}
+                                    {{ form_widget(form.isSpecialOffer) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.percentOffer) }}
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Ajouter</button>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #/ container -->
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="//unpkg.com/@grafikart/drop-files-element"></script>
+{% endblock %}
+
