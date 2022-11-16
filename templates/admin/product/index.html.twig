@@ -18,24 +18,31 @@
                                     <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                        <th>Salary</th>
+                                        <th>Prix</th>
+                                        <th>Date d'ajout</th>
+                                        <th>Quantités</th>
+                                        <th>Publié</th>
+                                        <th>Catégorie</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                    </tr>
+
+                                    {% for product in products %}
+                                        <tr>
+                                            <td>{{ product.name }}</td>
+                                            <td>{{ product.price }}</td>
+                                            <td>{{ product.createdAt|date("m/d/Y") }}</td>
+                                            <td>{{ product.quantity }}</td>
+                                            <td>{{ product.isPublished }}</td>
+                                            <td>
+                                                {% for category in product.categories %}
+                                                    <span class="label label-primary">{{ category.name }}</span>
+                                                {% endfor %}
+                                            </td>
+                                            <td>edit</td>
+                                        </tr>
+                                    {% endfor %}
                                     </tfoot>
                                 </table>
                             </div>
@@ -56,6 +63,7 @@
     <script src="{{ asset('adminAssets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('adminAssets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminAssets/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+    <script src="{{ asset('adminAssets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             {% for message in app.flashes('success') %}

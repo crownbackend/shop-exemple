@@ -50,9 +50,12 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $imageFile */
             $imageFiles = $form->get('images')->getData();
+            foreach ($product->getCategories() as $category) {
+                $category->addProduct($product);
+            }
             if($imageFiles) {
                 foreach ($imageFiles as $imageFile) {
-                    $imageFileName = $this->uploader->upload($imageFile, 'product_images');
+                    $imageFileName = $this->uploader->upload($imageFile,  $this->getParameter('product_images'));
                     $image = new Image();
                     $image->setName($imageFileName);
                     $image->setAlt($imageFileName);
