@@ -53,7 +53,7 @@
                                     {{ form_label(form.isSpecialOffer) }}
                                     {{ form_widget(form.isSpecialOffer) }}
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="display: none" id="percent_offer">
                                     {{ form_row(form.percentOffer) }}
                                 </div>
                                 <div class="form-group">
@@ -76,6 +76,17 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="module" src="//unpkg.com/@grafikart/drop-files-element"></script>
+    <script type="module" src="{{ asset('js/drop-files-element.js') }}"></script>
+    <script type="text/javascript">
+        const specialOffer = document.querySelector('#product_isSpecialOffer')
+        const percentOffer = document.querySelector('#percent_offer')
+        specialOffer.addEventListener('change', function () {
+            if(specialOffer.checked) {
+                percentOffer.style.display = 'block'
+            } else {
+                percentOffer.style.display = 'none'
+            }
+        })
+    </script>
 {% endblock %}
 

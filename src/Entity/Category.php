@@ -34,7 +34,7 @@ class Category
     #[ORM\Column(length: 230)]
     private ?string $metaDescription = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'categories', cascade: ['remove'])]
     private Collection $products;
 
     public function __construct()

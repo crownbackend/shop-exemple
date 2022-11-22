@@ -43,7 +43,7 @@ class Product
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'products')]
     private Collection $categories;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
 
     #[ORM\Column(nullable: true)]
@@ -52,13 +52,13 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?int $percentOffer = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: TypeProduct::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: TypeProduct::class, cascade: ['persist', 'remove'])]
     private Collection $typeProduct;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
     private Collection $comments;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: PromotionalCode::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: PromotionalCode::class, cascade: ['persist', 'remove'])]
     private Collection $promotionalCode;
 
     public function __construct()
