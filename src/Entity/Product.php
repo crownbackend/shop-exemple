@@ -40,17 +40,17 @@ class Product
     #[ORM\Column]
     private ?bool $isPublished = null;
 
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'products')]
-    private Collection $categories;
-
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
-    private Collection $images;
-
     #[ORM\Column(nullable: true)]
     private ?bool $isSpecialOffer = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $percentOffer = null;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'products')]
+    private Collection $categories;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: TypeProduct::class, cascade: ['persist', 'remove'])]
     private Collection $typeProduct;

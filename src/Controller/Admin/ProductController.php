@@ -46,23 +46,22 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            /*
-             *  @var UploadedFile $imageFile
+
+             /** @var UploadedFile $imageFile */
             if($form->get('images')->getData()) {
                 foreach ($form->get('images')->getData() as $datum) {
                     $imageFileName = $this->uploader->upload($datum, $this->getParameter('product_directory'));
                     $image = new Image();
                     $image->setName($imageFileName);
+                    $image->setAlt($imageFileName);
                     $product->addImage($image);
                 }
-            }*/
-
-            dd($product);
+            }
             foreach ($product->getCategories() as $category) {
                 $category->addProduct($product);
             }
             $product->setSlug($this->slugger->slug($product->getName()));
-            $this->productRepository->save($product);
+            $this->productRepository->save($product, true);
             $this->addFlash('success', 'Produit ajouter avec succès');
             return $this->redirectToRoute('admin_product_home');
 
