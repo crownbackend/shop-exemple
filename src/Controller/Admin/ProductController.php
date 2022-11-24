@@ -7,7 +7,10 @@ use App\Entity\Product;
 use App\Form\Admin\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\FileUploader;
+use App\Service\Slugger;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +47,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             /*
+             *  @var UploadedFile $imageFile
             if($form->get('images')->getData()) {
                 foreach ($form->get('images')->getData() as $datum) {
                     $imageFileName = $this->uploader->upload($datum, $this->getParameter('product_directory'));
@@ -54,9 +58,29 @@ class ProductController extends AbstractController
             }*/
 
             dd($product);
+            foreach ($product->getCategories() as $category) {
+                $category->addProduct($product);
+            }
+            $product->setSlug($this->slugger->slug($product->getName()));
+            $this->productRepository->save($product);
+            $this->addFlash('success', 'Produit ajouter avec succès');
+            return $this->redirectToRoute('admin_product_home');
+
         }
         return $this->render('admin/product/add.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Product $product, Request $request)
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        return $this->render('admin/product/edit.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product
         ]);
     }
 }
