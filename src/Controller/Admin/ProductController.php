@@ -7,11 +7,9 @@ use App\Entity\Product;
 use App\Form\Admin\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\FileUploader;
-use App\Service\Slugger;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,7 +61,7 @@ class ProductController extends AbstractController
             $product->setSlug($this->slugger->slug($product->getName()));
             $this->productRepository->save($product, true);
             $this->addFlash('success', 'Produit ajouter avec succès');
-            return $this->redirectToRoute('admin_product_home');
+            return $this->redirectToRoute('admin_product_edit', ['id' => $product->getId()]);
 
         }
         return $this->render('admin/product/add.html.twig', [
@@ -77,9 +75,37 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $imageFile */
+            if($form->get('images')->getData()) {
+                foreach ($form->get('images')->getData() as $datum) {
+                    $imageFileName = $this->uploader->upload($datum, $this->getParameter('product_directory'));
+                    $image = new Image();
+                    $image->setName($imageFileName);
+                    $image->setAlt($imageFileName);
+                    $product->addImage($image);
+                }
+            }
+            $this->productRepository->save($product, true);
+            $this->addFlash('success', 'Produit ajouter avec succès');
+            return $this->redirectToRoute('admin_product_home');
+
+        }
+
         return $this->render('admin/product/edit.html.twig', [
             'form' => $form->createView(),
             'product' => $product
         ]);
+    }
+
+    #[Route("/{id}/delete", name: 'delete')]
+    public function delete(Product $product): RedirectResponse
+    {
+        foreach ($product->getImages() as $image) {
+            $this->uploader->delete($image->getName(), 'product_directory');
+        }
+        $this->productRepository->remove($product, true);
+        return $this->redirectToRoute('admin_product_home');
     }
 }

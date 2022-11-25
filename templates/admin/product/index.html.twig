@@ -34,7 +34,13 @@
                                             <td>{{ product.price }}</td>
                                             <td>{{ product.createdAt|date("m/d/Y") }}</td>
                                             <td>{{ product.quantity }}</td>
-                                            <td>{{ product.isPublished }}</td>
+                                            <td>
+                                                {% if product.isPublished %}
+                                                    <span class="label label-success">Publié</span>
+                                                {% else %}
+                                                    <span class="label label-danger">Non publié</span>
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 {% for category in product.categories %}
                                                     <span class="label label-primary">{{ category.name }}</span>
@@ -43,7 +49,7 @@
                                             <td> <a href="{{ path('admin_product_edit', {'id': product.id}) }}" class="btn btn-primary">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                                <a href="{{ path('admin_product_delete', {'id': product.id}) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a></td>
                                         </tr>

@@ -62,15 +62,15 @@
                                 </div>
 
                                     <div class="card">
-                                        {% for image in product.images %}
-                                        <img class="img-fluid" src="{{  asset('uploads/product/') ~ image.name }}" width="150" height="150" alt="">
+                                        {% for row in product.images|batch(3) %}
+                                            <div class="row">
+                                                {% for image in row %}
+                                                    <div class="col-md-3">
+                                                        <img class="img-fluid" src="{{  asset('uploads/product/') ~ image.name }}" width="150" height="150" alt="">
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
                                         {% endfor %}
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a wider card with supporting text and below as a natural lead-in to the additional content. This content is a little bit longer.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
-                                            </p>
-                                        </div>
                                     </div>
                                 {{ form_end(form) }}
                             </div>
